@@ -2,6 +2,7 @@
 import Back from "@/components/Back";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [selectedOption, setSelectedOption] = useState("child");
@@ -13,7 +14,8 @@ const page = () => {
   const [year, setYear] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordVisibilityText, setPasswordVisibilityText] = useState("Göstər");
+  const [passwordVisibilityText, setPasswordVisibilityText] =
+    useState("Göstər");
   const [confirmationPassword, setConfirmationPassword] = useState("");
   const [
     confirmationPasswordVisibilityText,
@@ -72,6 +74,37 @@ const page = () => {
     );
   };
 
+  const router = useRouter();
+
+  const handleFormSubmit = (e) => {
+    if (
+      firstname != "" &&
+      lastname != "" &&
+      email != "" &&
+      password != "" &&
+      confirmationPassword != "" &&
+      password === confirmationPassword
+    ) {
+      e.preventDefault();
+      localStorage.setItem("firstname", firstname);
+      localStorage.setItem("lastname", lastname);
+      const birthDate = new Date(year, month - 1, day);
+      const today = new Date();
+
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDifference = today.getMonth() - birthDate.getMonth();
+      const dayDifference = today.getDate() - birthDate.getDate();
+
+      if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+        age--;
+      }
+      localStorage.setItem("age", age);
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+      router.push("/dashboard");
+    }
+  };
+
   return (
     <div className="w-[320px] flex flex-col justify-between py-2">
       <div>
@@ -82,7 +115,7 @@ const page = () => {
           <p className="text-[#00000080]">Xahiş olunur, hesab yaradın...</p>
         </div>
 
-        <form className="grid gap-4">
+        <form className="grid gap-4" onSubmit={handleFormSubmit}>
           <div className="grid gap-y-2">
             <div className="grid grid-cols-2 mb-3">
               <div className="flex items-center">
@@ -141,7 +174,7 @@ const page = () => {
                 />
 
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   placeholder="Elektron poçt"
                   onChange={handleEmailChange}
@@ -151,7 +184,7 @@ const page = () => {
                 <span className="bg-[#F4F4F4] rounded-md flex items-center pr-3">
                   <input
                     type={
-                      passwordVisibilityText === "Show" ? "password" : "text"
+                      passwordVisibilityText === "Göstər" ? "password" : "text"
                     }
                     id="password"
                     placeholder="Şifrə"
@@ -215,38 +248,41 @@ const page = () => {
                   />
                 </span>
 
-                <span className="grid grid-cols-3 gap-2">
-                  <input
-                    type="text"
-                    id="day"
-                    placeholder="GG"
-                    maxLength={2}
-                    onChange={handleDayChange}
-                    value={day}
-                    className="p-3 bg-[#F4F4F4] rounded-md focus:outline-none"
-                  />
-                  <input
-                    type="text"
-                    id="month"
-                    placeholder="AA"
-                    maxLength={2}
-                    onChange={handleMonthChange}
-                    value={month}
-                    className="p-3 bg-[#F4F4F4] rounded-md focus:outline-none"
-                  />
-                  <input
-                    type="text"
-                    id="year"
-                    placeholder="İİİİ"
-                    maxLength={4}
-                    onChange={handleYearChange}
-                    value={year}
-                    className="p-3 bg-[#F4F4F4] rounded-md focus:outline-none"
-                  />
+                <span className="">
+                  <p>Doğum günü</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    <input
+                      type="text"
+                      id="day"
+                      placeholder="GG"
+                      maxLength={2}
+                      onChange={handleDayChange}
+                      value={day}
+                      className="p-3 bg-[#F4F4F4] rounded-md focus:outline-none"
+                    />
+                    <input
+                      type="text"
+                      id="month"
+                      placeholder="AA"
+                      maxLength={2}
+                      onChange={handleMonthChange}
+                      value={month}
+                      className="p-3 bg-[#F4F4F4] rounded-md focus:outline-none"
+                    />
+                    <input
+                      type="text"
+                      id="year"
+                      placeholder="İİİİ"
+                      maxLength={4}
+                      onChange={handleYearChange}
+                      value={year}
+                      className="p-3 bg-[#F4F4F4] rounded-md focus:outline-none"
+                    />
+                  </div>
                 </span>
 
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   placeholder="Elektron poçt"
                   onChange={handleEmailChange}
@@ -256,7 +292,7 @@ const page = () => {
                 <span className="bg-[#F4F4F4] rounded-md flex items-center pr-3">
                   <input
                     type={
-                      passwordVisibilityText === "Show" ? "password" : "text"
+                      passwordVisibilityText === "Göstər" ? "password" : "text"
                     }
                     id="password"
                     placeholder="Şifrə"
@@ -302,11 +338,17 @@ const page = () => {
 
           <div className="grid gap-2 mt-2">
             <span className="font-medium">
-              <input type="checkbox" className="mr-2 cursor-pointer h-[11px]"/>
-              Tətbiqin <span className="text-[#615EFC] cursor-pointer">İstifadə Qaydaları</span> ilə tanışam və qəbul edirəm.
-              
+              <input type="checkbox" className="mr-2 cursor-pointer h-[11px]" />
+              Tətbiqin{" "}
+              <span className="text-[#615EFC] cursor-pointer">
+                İstifadə Qaydaları
+              </span>{" "}
+              ilə tanışam və qəbul edirəm.
             </span>
-            <button className="py-3 text-white rounded-full bg-[#615EFC] font-medium">
+            <button
+              className="py-3 text-white rounded-full bg-[#615EFC] font-medium"
+              onClick={handleFormSubmit}
+            >
               Hesab yaradın
             </button>
           </div>
@@ -317,7 +359,7 @@ const page = () => {
         <div>
           <p className="font-medium">
             Artıq hesabınız var?{" "}
-            <Link href="/signup" className="text-[#615EFC]">
+            <Link href="/login" className="text-[#615EFC]">
               Giriş edin!
             </Link>
           </p>

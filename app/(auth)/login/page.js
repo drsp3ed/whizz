@@ -6,7 +6,8 @@ import Link from "next/link";
 const page = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [passwordVisibilityText, setPasswordVisibilityText] = useState("Show");
+  const [passwordVisibilityText, setPasswordVisibilityText] =
+    useState("Göstər");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -18,7 +19,7 @@ const page = () => {
 
   const handlePasswordVisibilityText = () => {
     setPasswordVisibilityText(
-      passwordVisibilityText === "Show" ? "Hide" : "Show"
+      passwordVisibilityText === "Göstər" ? "Gizlət" : "Göstər"
     );
   };
 
@@ -28,25 +29,27 @@ const page = () => {
         <Back status="active" backdirectory="/" />
 
         <div className="my-6">
-          <h1 className="text-2xl font-semibold">Welcome back!</h1>
-          <p className="text-[#00000080]">Please, log into your account...</p>
+          <h1 className="text-2xl font-semibold">Xoş gəlmisiniz!</h1>
+          <p className="text-[#00000080]">
+            Xahiş edirik, hesabınıza daxil olun...
+          </p>
         </div>
 
         <form className="grid gap-4">
           <div className="grid gap-y-2">
             <input
-              type="text"
+              type="email"
               id="email"
-              placeholder="Email address"
+              placeholder="Elektron poçt"
               onChange={handleEmailChange}
               value={email}
               className="p-3 bg-[#F4F4F4] rounded-md focus:outline-none"
             />
             <span className="bg-[#F4F4F4] rounded-md flex items-center pr-3">
               <input
-                type="password"
+                type={passwordVisibilityText === "Göstər" ? "password" : "text"}
                 id="password"
-                placeholder="Password"
+                placeholder="Şifrə"
                 onChange={handlePasswordChange}
                 value={password}
                 className="p-3 bg-[#F4F4F4] rounded-md focus:outline-none"
@@ -64,10 +67,10 @@ const page = () => {
 
           <div className="grid gap-2">
             <button className="py-3 text-white rounded-full bg-[#615EFC] font-medium">
-              Log in
+              Daxil ol
             </button>
             <button className="py-3 text-[#615EFC] font-medium">
-              Forgot your password?
+              Şifrəni unutmusunuz?
             </button>
           </div>
         </form>
@@ -76,9 +79,9 @@ const page = () => {
       <div className="w-full flex justify-center pb-8">
         <div>
           <p>
-            Don't have an account?{" "}
+            Hesabınız yoxdur?{" "}
             <Link href="/signup" className="text-[#615EFC]">
-              Sign up
+              Hesab yaradın!
             </Link>
           </p>
         </div>
