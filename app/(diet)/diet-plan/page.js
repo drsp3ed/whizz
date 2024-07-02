@@ -7,9 +7,10 @@ const page = () => {
     <div className="w-[320px] flex flex-col overflow-x-hidden">
         <Back status="active" backdirectory="/" />
 
+ <main>
         <div className="py-6">
-        <h1 class="text-2xl font-extrabold dark:text-black my-1">Uşağınız üçün mükəmməl pəhriz qurun.</h1>
-        <p class="text-lg text-gray-500">Aşağıdakı sahələrin hamısını tamamilə doldurun.</p>
+        <h1 className="text-2xl font-extrabold dark:text-black my-1">Uşağınız üçün mükəmməl pəhriz qurun.</h1>
+        <p className="text-lg text-gray-500">Aşağıdakı sahələrin hamısını tamamilə doldurun.</p>
         </div>
         
         <span className='text-base items-center text-[#615efc] font-bold justify-center'>Boy (sm):</span>
@@ -20,6 +21,10 @@ const page = () => {
         <NumberSelector upperLimit = {25} lowerLimit = {1} />
 
         <Link className="w-100 bg-[#615efc] text-white items-center rounded-3xl h-6 mt-4 font-bold text-center" href = "/diet-plan/survey">Saxla və Davam et</Link>
+
+        <h1 className="text-2xl font-extrabold dark:text-black">Build the perfect diet for your child.</h1>
+        <p className="my-1 text-lg text-gray-500">Fill in all of the following fields copletely.</p>
+ <main/>
     </div>
   )
 }
