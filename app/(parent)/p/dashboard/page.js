@@ -1,10 +1,37 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Back from "@/components/Back";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const page = () => {
-  let firstname = localStorage.getItem("firstname");
+  const [firstname, setFirstname] = useState("");
+
+  useEffect(() => {
+    const storedFirstname = localStorage.getItem("firstname");
+    if (storedFirstname) {
+      setFirstname(storedFirstname);
+    }
+  }, []);
+
+  const router = useRouter();
+  useEffect(() => {
+    if (
+      localStorage.getItem("email") &&
+      localStorage.getItem("password") &&
+      localStorage.getItem("type") === "parent"
+    ) {
+      router.push("/p/dashboard/");
+    } else if (
+      localStorage.getItem("email") &&
+      localStorage.getItem("password") &&
+      localStorage.getItem("type") === "child"
+    ) {
+      router.push("/c/");
+    }
+  }, [router]);
+
   return (
     <div className="w-[320px] flex flex-col justify-between py-2">
       <div>

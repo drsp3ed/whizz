@@ -1,23 +1,26 @@
 "use client";
 import Back from "@/components/Back";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const page = () => {
   const router = useRouter();
-  if (
-    localStorage.getItem("email") &&
-    localStorage.getItem("password") &&
-    localStorage.getItem("type") === "parent"
-  )
-    router.push("/p/dashboard/");
-  if (
-    localStorage.getItem("email") &&
-    localStorage.getItem("password") &&
-    localStorage.getItem("type") === "child"
-  )
-    router.push("/c/");
+  useEffect(() => {
+    if (
+      localStorage.getItem("email") &&
+      localStorage.getItem("password") &&
+      localStorage.getItem("type") === "parent"
+    ) {
+      router.push("/p/dashboard/");
+    } else if (
+      localStorage.getItem("email") &&
+      localStorage.getItem("password") &&
+      localStorage.getItem("type") === "child"
+    ) {
+      router.push("/c/");
+    }
+  }, [router]);
 
   const [clickability, setClickability] = useState(false);
   const [selectedOption, setSelectedOption] = useState("child");
@@ -126,7 +129,15 @@ const page = () => {
       localStorage.setItem("password", password);
       localStorage.setItem("type", selectedOption);
       setClickability(false);
-      router.push("/p/dashboard");
+      if (
+        localStorage.getItem("type") === "parent"
+      ) {
+        router.push("/p/dashboard/");
+      } else if (
+        localStorage.getItem("type") === "child"
+      ) {
+        router.push("/c/");
+      }
     }
   };
 
@@ -234,7 +245,7 @@ const page = () => {
                         ? "password"
                         : "text"
                     }
-                    id="password"
+                    id="confirmationPassword"
                     placeholder="Şifrəni təsdiqlə"
                     onChange={handleConfirmationPasswordChange}
                     value={confirmationPassword}
@@ -342,7 +353,7 @@ const page = () => {
                         ? "password"
                         : "text"
                     }
-                    id="password"
+                    id="confirmationPassword"
                     placeholder="Şifrəni təsdiqlə"
                     onChange={handleConfirmationPasswordChange}
                     value={confirmationPassword}
