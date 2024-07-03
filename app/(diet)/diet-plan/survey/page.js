@@ -1,5 +1,7 @@
 "use client";   
 import Back from "@/components/Back";
+import Success from "@/components/Success.jsx";
+import Error from "@/components/Error.jsx";
 
 
 const page = () => {
@@ -10,8 +12,8 @@ const page = () => {
       };
 
     return (
-        <div className="w-[320px] flex flex-col">
-            <Back status="active" backdirectory="/diet-plan" />
+        <div className="w-[320px] flex flex-col overflow-x-hidden">
+            {/* <Back status="active" backdirectory="/diet-plan" />
 
             <div className="py-6">
             <h1 class="text-2xl font-extrabold dark:text-black my-1">Uşağınız üçün mükəmməl pəhriz qurun.</h1>
@@ -20,7 +22,10 @@ const page = () => {
 
             <div>
             <h1>put the entrys here</h1>
-            </div>
+            </div> */}
+
+            <Success successTitle="hahaahahahduha fushjlsjfis fisjfkmsifhi HDJKSJK" />
+            <Error errorTitle="hfjlsdfnhvidosl" />
         </div>
     )
 }
