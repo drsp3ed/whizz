@@ -24,7 +24,7 @@ const page = () => {
   };
 
   return (
-    <div className="w-[320px] flex flex-col justify-between">
+    <div className="w-[320px] flex flex-col justify-between py-2">
       <div>
         <Back status="active" backdirectory="/" />
 
@@ -76,7 +76,7 @@ const page = () => {
         </form>
       </div>
 
-      <div className="w-full flex justify-center pb-8">
+      <div className="w-full flex justify-center">
         <div>
           <p>
             Hesabınız yoxdur?{" "}

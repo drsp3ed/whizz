@@ -5,6 +5,21 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
+  if (
+    localStorage.getItem("email") &&
+    localStorage.getItem("password") &&
+    localStorage.getItem("type") === "parent"
+  )
+    router.push("/p/dashboard/");
+  if (
+    localStorage.getItem("email") &&
+    localStorage.getItem("password") &&
+    localStorage.getItem("type") === "child"
+  )
+    router.push("/c/");
+
+  const [clickability, setClickability] = useState(false);
   const [selectedOption, setSelectedOption] = useState("child");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -21,6 +36,15 @@ const page = () => {
     confirmationPasswordVisibilityText,
     setConfirmationPasswordVisibilityText,
   ] = useState("Göstər");
+
+  const toggleClickability = () => {
+    setClickability(clickability === false ? true : false);
+  };
+
+  const submitButtonStyle =
+    clickability === false
+      ? "bg-[#0000004d] cursor-not-allowed"
+      : "bg-[#615EFC]";
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -74,18 +98,17 @@ const page = () => {
     );
   };
 
-  const router = useRouter();
-
   const handleFormSubmit = (e) => {
+    e.preventDefault();
     if (
       firstname != "" &&
       lastname != "" &&
       email != "" &&
       password != "" &&
       confirmationPassword != "" &&
+      clickability === true &&
       password === confirmationPassword
     ) {
-      e.preventDefault();
       localStorage.setItem("firstname", firstname);
       localStorage.setItem("lastname", lastname);
       const birthDate = new Date(year, month - 1, day);
@@ -101,7 +124,9 @@ const page = () => {
       localStorage.setItem("age", age);
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
-      router.push("/dashboard");
+      localStorage.setItem("type", selectedOption);
+      setClickability(false);
+      router.push("/p/dashboard");
     }
   };
 
@@ -249,7 +274,7 @@ const page = () => {
                 </span>
 
                 <span className="">
-                  <p>Doğum günü</p>
+                  <p>Doğum tarixi</p>
                   <div className="grid grid-cols-3 gap-2">
                     <input
                       type="text"
@@ -338,7 +363,11 @@ const page = () => {
 
           <div className="grid gap-2 mt-2">
             <span className="font-medium">
-              <input type="checkbox" className="mr-2 cursor-pointer h-[11px]" />
+              <input
+                type="checkbox"
+                className="mr-2 cursor-pointer h-[11px]"
+                onClick={toggleClickability}
+              />
               Tətbiqin{" "}
               <span className="text-[#615EFC] cursor-pointer">
                 İstifadə Qaydaları
@@ -346,7 +375,7 @@ const page = () => {
               ilə tanışam və qəbul edirəm.
             </span>
             <button
-              className="py-3 text-white rounded-full bg-[#615EFC] font-medium"
+              className={`py-3 text-white rounded-full ${submitButtonStyle} font-medium`}
               onClick={handleFormSubmit}
             >
               Hesab yaradın

@@ -19,37 +19,37 @@ const page = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-2 text-white font-medium">
-          <Link href="/dashboard/manage-family">
+          <Link href="p/dashboard/manage-family">
             <div className="w-full bg-sky-500 px-6 py-6 rounded-md cursor-pointer ">
               Ailəni tənzimləyin
             </div>
           </Link>
 
-          <Link href="dashboard/monitor-health">
+          <Link href="p/dashboard/monitor-health">
             <div className="w-full bg-blue-500 px-6 py-6 rounded-md cursor-pointer ">
               Sağlamlığı izləyin
             </div>
           </Link>
 
-          <Link href="dashboard/add-task">
+          <Link href="p/dashboard/add-task">
             <div className="w-full bg-green-500 px-6 py-6 rounded-md cursor-pointer ">
               Tapşırıq təyin edin
             </div>
           </Link>
 
-          <Link href="dashboard/profile-settings">
+          <Link href="/p/dashboard/profile-settings">
             <div className="w-full bg-indigo-500 px-6 py-6 rounded-md cursor-pointer ">
               Profili tənzimləyin
             </div>
           </Link>
 
-          <Link href="dashboard/support">
+          <Link href="/p/dashboard/support">
             <div className="w-full bg-purple-500 px-6 py-6 rounded-md cursor-pointer ">
               Dəstək və resurslar
             </div>
           </Link>
 
-          <Link href="">
+          <Link href="/p/diet-plan">
             <div className="w-full bg-violet-500 px-6 py-6 rounded-md cursor-pointer ">
               Qidalanma rejimi yaradın
             </div>

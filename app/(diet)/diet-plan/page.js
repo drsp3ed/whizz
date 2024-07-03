@@ -7,7 +7,7 @@ const page = () => {
     <div className="w-[320px] flex flex-col overflow-x-hidden">
         <Back status="active" backdirectory="/" />
 
- <main>
+        <main>
         <div className="py-6">
         <h1 className="text-2xl font-extrabold dark:text-black my-1">Uşağınız üçün mükəmməl pəhriz qurun.</h1>
         <p className="text-lg text-gray-500">Aşağıdakı sahələrin hamısını tamamilə doldurun.</p>
@@ -24,7 +24,7 @@ const page = () => {
 
         <h1 className="text-2xl font-extrabold dark:text-black">Build the perfect diet for your child.</h1>
         <p className="my-1 text-lg text-gray-500">Fill in all of the following fields copletely.</p>
- <main/>
+      </main>
     </div>
   )
 }

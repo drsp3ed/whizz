@@ -7,7 +7,7 @@ const Back = ({ backdirectory, status }) => {
     <div>
       <Link href={backdirectory} className={`${statuscss} flex items-center h-12 font-medium`}>
         <FaChevronLeft className="scale-75"/>
-        Back
+        Geri
       </Link>
     </div>
   );
